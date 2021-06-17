@@ -89,7 +89,7 @@ for (const pull of pulls) {
 			grouped.bugs[directusPackage].push(pull);
 		}
 
-		if (pull.labels.includes("dependencies")) grouped.dependencies.push(pull);
+		if (pull.labels.includes("Dependencies")) grouped.dependencies.push(pull);
 		if (pull.labels.includes("Documentation")) grouped.documentation.push(pull);
 	}
 }
