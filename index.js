@@ -10,7 +10,7 @@ const octokit = new Octokit({
 	userAgent: "changelog-generator@1.0.0",
 });
 
-console.log('Fetching recent milestones...');
+console.log("Fetching recent milestones...");
 
 const milestones = await octokit.rest.issues.listMilestones({
 	owner: "directus",
@@ -20,7 +20,7 @@ const milestones = await octokit.rest.issues.listMilestones({
 	sort: "created_at",
 });
 
-console.log('Looking up milestone...');
+console.log("Looking up milestone...");
 
 const milestone = milestones.data.find(
 	(milestone) => milestone.title === milestoneTitle
@@ -30,7 +30,7 @@ if (!milestone) {
 	throw new Error(`Milestone ${milestoneTitle} doesn't exist`);
 }
 
-console.log('Fetching issues for repo...');
+console.log("Fetching issues for repo...");
 
 const issues = await octokit.rest.issues.listForRepo({
 	owner: "directus",
@@ -40,7 +40,7 @@ const issues = await octokit.rest.issues.listForRepo({
 	per_page: 100,
 });
 
-console.log('Pulling / parsing pull requests...');
+console.log("Pulling / parsing pull requests...");
 
 const pulls = issues.data
 	.filter((issue) => {
@@ -56,7 +56,7 @@ const grouped = {
 	dependencies: [],
 };
 
-const packageLabels = ["App", "API", "Docker"]; // and Package: <whatever>
+const packageLabels = ["App", "API", "Docker", "Extensions"]; // and Package: <whatever>
 
 for (const pull of pulls) {
 	const directusPackages = pull.labels
@@ -100,7 +100,7 @@ const dateString = new Intl.DateTimeFormat("en-US", {
 	dateStyle: "long",
 }).format(date);
 
-console.log('Generating markdown...');
+console.log("Generating markdown...");
 
 let markdownOutput = `## ${milestoneTitle} (${dateString})`;
 
@@ -129,17 +129,17 @@ if (Object.keys(grouped.dependencies).length > 0) {
 	markdownOutput += formatLines(grouped.dependencies).join("\n");
 }
 
-console.log('Saving markdown to file...');
+console.log("Saving markdown to file...");
 
 await fs.writeFile(
 	path.join("./output", milestoneTitle + ".md"),
 	markdownOutput
 );
 
-console.log('Done!');
+console.log("Done!");
 
 console.log();
-console.log('==============================================================');
+console.log("==============================================================");
 console.log();
 console.log();
 console.log(markdownOutput);
