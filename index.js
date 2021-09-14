@@ -32,7 +32,7 @@ if (!milestone) {
 
 console.log("Fetching issues for repo...");
 
-const issues = await octokit.rest.issues.listForRepo({
+const issues = await octokit.paginate(octokit.rest.issues.listForRepo, {
 	owner: "directus",
 	repo: "directus",
 	milestone: milestone.number,
@@ -42,7 +42,7 @@ const issues = await octokit.rest.issues.listForRepo({
 
 console.log("Pulling / parsing pull requests...");
 
-const pulls = issues.data
+const pulls = issues
 	.filter((issue) => {
 		return issue.pull_request;
 	})
