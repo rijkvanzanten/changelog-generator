@@ -90,7 +90,7 @@ for (const pull of pulls) {
 			grouped.bugs[directusPackage].push(pull);
 		}
 
-		if (pull.labels.includes("Optimization") && pull.labels.includes("Notice")) {
+		if (pull.labels.includes("Optimization")) {
 			if (!grouped.optimizations[directusPackage])
 				grouped.optimizations[directusPackage] = [];
 			grouped.optimizations[directusPackage].push(pull);
