@@ -127,7 +127,7 @@ if (Object.keys(grouped.bugs).length > 0) {
 }
 
 if (Object.keys(grouped.optimizations).length > 0) {
-	markdownOutput += "\n\n### :bug: Optimizations\n";
+	markdownOutput += "\n\n### :sponge: Optimizations\n";
 	markdownOutput += formatGroup(grouped.optimizations);
 }
 
