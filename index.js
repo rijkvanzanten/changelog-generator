@@ -52,6 +52,7 @@ const grouped = {
 	features: {},
 	improvements: {},
 	bugs: {},
+	optimizations: {},
 	documentation: [],
 	dependencies: [],
 };
@@ -89,6 +90,12 @@ for (const pull of pulls) {
 			grouped.bugs[directusPackage].push(pull);
 		}
 
+		if (pull.labels.includes("Optimization") && pull.labels.includes("Notice")) {
+			if (!grouped.optimizations[directusPackage])
+				grouped.optimizations[directusPackage] = [];
+			grouped.optimizations[directusPackage].push(pull);
+		}
+
 		if (pull.labels.includes("Dependencies")) grouped.dependencies.push(pull);
 		if (pull.labels.includes("Documentation")) grouped.documentation.push(pull);
 	}
@@ -117,6 +124,11 @@ if (Object.keys(grouped.improvements).length > 0) {
 if (Object.keys(grouped.bugs).length > 0) {
 	markdownOutput += "\n\n### :bug: Bug Fixes\n";
 	markdownOutput += formatGroup(grouped.bugs);
+}
+
+if (Object.keys(grouped.optimizations).length > 0) {
+	markdownOutput += "\n\n### :sponge: Optimizations\n";
+	markdownOutput += formatGroup(grouped.optimizations);
 }
 
 if (Object.keys(grouped.documentation).length > 0) {
