@@ -185,6 +185,6 @@ function formatLines(lines) {
 		(pull) =>
 			`- ${pull.labels.includes("Notice") ? ":warning: " : ""}[#${
 				pull.number
-			}](${pull.link}) ${pull.title} ([@${pull.author}](${pull.author_link}))`
+			}](${pull.link}) ${pull.title} (by @${pull.author})`
 	);
 }
